@@ -15,6 +15,8 @@ namespace XFApp_NossoChat.View
         public PaginaInicial()
         {
             InitializeComponent();
+
+            BindingContext = new ViewModel.PaginaInicialViewModel();
         }
     }
 }

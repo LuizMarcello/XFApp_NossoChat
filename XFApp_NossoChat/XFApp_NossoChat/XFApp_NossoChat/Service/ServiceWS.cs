@@ -22,6 +22,7 @@ namespace XFApp_NossoChat.Service
              * StringContent param = new StringContent(string.Format("?nome={0}&password={1}", usuario.nome, usuario.password));
              */
             //ou assim:
+            //Para quando tem "corpo"(Postman) da mensagem
             FormUrlEncodedContent param = new FormUrlEncodedContent(new[] {
                 new KeyValuePair<string,string>("nome",usuario.nome),
                 new KeyValuePair<string,string>("password",usuario.password)
@@ -67,7 +68,8 @@ namespace XFApp_NossoChat.Service
         public static bool InsertChat(Chat chat)
         {
             var URL = EnderecoBase + "/chat";
-            
+
+            //Para quando tem "corpo"(Postman) na mensagem
             FormUrlEncodedContent param = new FormUrlEncodedContent(new[] {
                 new KeyValuePair<string,string>("nome", chat.nome),
             });
@@ -87,6 +89,7 @@ namespace XFApp_NossoChat.Service
         {
             var URL = EnderecoBase + "/chat/" + chat.id;
 
+            //Para quando tem "corpo"(Postman) na mensagem
             FormUrlEncodedContent param = new FormUrlEncodedContent(new[] {
                 new KeyValuePair<string,string>("nome", chat.nome),
             });
@@ -118,8 +121,83 @@ namespace XFApp_NossoChat.Service
                 return false;
             }
         }
+
+        //Retorna todas as mensagens do chat especificado no id
+        public static List<Mensagem> GetMensagemsChat(Chat chat)
+        {
+            var URL = EnderecoBase + "/chat/" + chat.id + "/msg/";
+
+            HttpClient requisicao = new HttpClient();
+            HttpResponseMessage resposta = requisicao.GetAsync(URL).GetAwaiter().GetResult();
+
+            if (resposta.StatusCode == HttpStatusCode.OK)
+            {
+                string conteudo = resposta.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+                if (conteudo.Length > 2)
+                {
+                    List<Mensagem> lista = JsonConvert.DeserializeObject<List<Mensagem>>(conteudo);
+                    return lista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        //Envia nova mensagem para o chat especificado
+        public static bool InsertMensagem(Mensagem mensagem)
+        {
+            // /chat/652/msg
+
+            var URL = EnderecoBase + "/chat/" + mensagem.id_chat + "/msg";
+
+            //Para quando tem "corpo"(Postman) na mensagem
+            FormUrlEncodedContent param = new FormUrlEncodedContent(new[] {
+                new KeyValuePair<string,string>("mensagem", mensagem.mensagem),
+                new KeyValuePair<string,string>("id_usuario", mensagem.id_usuario.ToString())
+            });
+
+            HttpClient requisicao = new HttpClient();
+            HttpResponseMessage resposta = requisicao.PostAsync(URL, param).GetAwaiter().GetResult();
+
+            if (resposta.StatusCode == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool DeleteMensagem(Mensagem mensagem)
+        {
+            var URL = EnderecoBase + "/chat/" + mensagem.id_chat + "/delete/" + mensagem.id;
+
+            HttpClient requisicao = new HttpClient();
+            HttpResponseMessage resposta = requisicao.DeleteAsync(URL).GetAwaiter().GetResult();
+
+            if (resposta.StatusCode == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
+            
+
+
+            
+
+
+
+           
+        
+
         
         
 

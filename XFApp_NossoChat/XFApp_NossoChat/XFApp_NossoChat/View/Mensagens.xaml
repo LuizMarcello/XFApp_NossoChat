@@ -4,9 +4,29 @@
              x:Class="XFApp_NossoChat.View.Mensagens">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+            <ScrollView>
+                <StackLayout>
+                    <Frame OutlineColor="#5Ed055"  CornerRadius="0" HorizontalOptions="Start">
+                        <StackLayout>
+                            <Label Text="Felipe123" FontSize="10" TextColor="#5Ed055"/>
+                            <Label Text="Olá amigos, tudo bem?" TextColor="#5Ed055"/>
+                        </StackLayout>
+                    </Frame>
+                    <StackLayout Padding="5" BackgroundColor="#5Ed055" HorizontalOptions="EndAndExpand">
+                        <Label Text="Olá mundo!" TextColor="White"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+            <StackLayout Orientation="Horizontal">
+                <Frame OutlineColor="#5Ed055" CornerRadius="0">
+                    <Entry Placeholder="Mensagem" BackgroundColor="White" TextColor="#5Ed055" 
+                       HorizontalOptions="FillAndExpand"/>
+                </Frame>
+                <Button Text="Enviar" BackgroundColor="#5Ed055" TextColor="White"/>
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,12 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XFApp_NossoChat.View.PaginaInicial">
+             x:Class="XFApp_NossoChat.View.PaginaInicial"
+             BackgroundColor="#5Ed055">
+    
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="Nosso Chat" TextColor="White"/>
+
+            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Entry Text="{Binding Nome}" BackgroundColor="White" TextColor="#5Ed055"/>
+                <Entry Text="{Binding Senha}" BackgroundColor="White" TextColor="#5Ed055"/>
+                <Button Text="Acessar/Cadastrar" BackgroundColor="Transparent" TextColor="White"
+                        Command="{Binding AcessarCommand}"/>
+                <Label Text="{Binding Mensagem}" TextColor="White"/>
+            </StackLayout>
+            
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+            
