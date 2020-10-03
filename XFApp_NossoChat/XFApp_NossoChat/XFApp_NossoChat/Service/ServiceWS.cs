@@ -33,7 +33,8 @@ namespace XFApp_NossoChat.Service
 
             if (resposta.StatusCode == HttpStatusCode.OK)
             {
-                //TODO - Deserializar, retornar método e salvar como login
+                var conteudo = resposta.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                return JsonConvert.DeserializeObject<Usuario>(conteudo);
             }
             return null;
         }
@@ -188,6 +189,7 @@ namespace XFApp_NossoChat.Service
         }
     }
 }
+                
             
 
 

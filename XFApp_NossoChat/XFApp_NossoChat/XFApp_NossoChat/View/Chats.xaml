@@ -5,10 +5,13 @@
     
     <ContentPage.ToolbarItems>
         <!--TODO - Adicionar Itens-->
+        <ToolbarItem IconImageSource="add.png" Text="Adicionar Chat" Command="{Binding AdicionarCommand}"/>
+        <ToolbarItem IconImageSource="sort.png" Text="Ordenar os Chats" Command="{Binding OrdenarCommand}"/>
+        <ToolbarItem IconImageSource="refresh.png" Text="Atualizar lista de Chats" Command="{Binding AtualizarCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <ListView>
+        <ListView ItemsSource="{Binding Chats}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding nome}" TextColor="#5Ed055"/>

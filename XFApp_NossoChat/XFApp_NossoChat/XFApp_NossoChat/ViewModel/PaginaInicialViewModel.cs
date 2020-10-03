@@ -5,6 +5,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using XFApp_NossoChat.Model;
 using XFApp_NossoChat.Service;
+using Newtonsoft.Json;
 
 namespace XFApp_NossoChat.ViewModel
 {
@@ -17,7 +18,7 @@ namespace XFApp_NossoChat.ViewModel
             set
             {
                 _nome = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Nome"));
+                OnPropertyChanged("Nome");
             }
         }
 
@@ -29,7 +30,7 @@ namespace XFApp_NossoChat.ViewModel
             set
             {
                 _senha = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Senha"));
+                OnPropertyChanged("Senha");
             }
         }
 
@@ -40,7 +41,7 @@ namespace XFApp_NossoChat.ViewModel
             set
             {
                 _mensagem = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Mensagem"));
+                OnPropertyChanged("Mensagem");
             }
         }
 
@@ -59,13 +60,32 @@ namespace XFApp_NossoChat.ViewModel
 
             var usuarioLogado = ServiceWS.GetUsuario(user);
 
+            //Na verdade, verificando se o usuário existe
             if (usuarioLogado == null)
             {
                 Mensagem = "usuario ou senha incorretos!";
             }
+            else
+            {
+                //Uma forma de armazenar o login(persistência)
+                //Toda vêz que a propriedade "LOGIN" existir, é porque está logado.
+                //"Properties" pode ser usado por toda a aplicação, para armazenar 
+                //estado da persistencia da aplicação.
+                App.Current.Properties["LOGIN"] = JsonConvert.SerializeObject(usuarioLogado);
+                //"Current": Obtém a aplicação corrente.
+                App.Current.MainPage = new NavigationPage(new View.Chats());
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string PropertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
+            }
+        }
     }
 }
 

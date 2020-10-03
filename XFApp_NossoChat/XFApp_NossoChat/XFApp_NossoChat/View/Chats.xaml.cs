@@ -15,6 +15,8 @@ namespace XFApp_NossoChat.View
         public Chats()
         {
             InitializeComponent();
+
+            BindingContext = new ViewModel.ChatsViewModel();
         }
     }
 }
