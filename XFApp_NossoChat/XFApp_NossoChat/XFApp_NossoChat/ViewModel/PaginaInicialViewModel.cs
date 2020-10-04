@@ -72,8 +72,13 @@ namespace XFApp_NossoChat.ViewModel
                 //"Properties" pode ser usado por toda a aplicação, para armazenar 
                 //estado da persistencia da aplicação.
                 App.Current.Properties["LOGIN"] = JsonConvert.SerializeObject(usuarioLogado);
-                //"Current": Obtém a aplicação corrente.
-                App.Current.MainPage = new NavigationPage(new View.Chats());
+                //"App.Current": Obtém a aplicação corrente.
+                App.Current.MainPage = new NavigationPage(new View.Chats()) 
+                {
+                    BarBackgroundColor = Color.FromHex("#5Ed055"),
+                    BarTextColor = Color.White
+                };
+                
             }
         }
 
@@ -88,6 +93,12 @@ namespace XFApp_NossoChat.ViewModel
         }
     }
 }
+        
+
+
+
+
+                
 
 
 

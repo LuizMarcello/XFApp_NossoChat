@@ -5,6 +5,7 @@ using System.Text;
 using Xamarin.Forms;
 using XFApp_NossoChat.Model;
 using XFApp_NossoChat.Service;
+using System.Linq;
 
 namespace XFApp_NossoChat.ViewModel
 {
@@ -30,7 +31,7 @@ namespace XFApp_NossoChat.ViewModel
         public List<Chat> Chats
         {
             get { return _chats; }
-            set 
+            set
             {
                 _chats = value;
                 OnPropertyChanged("Chats");
@@ -41,9 +42,36 @@ namespace XFApp_NossoChat.ViewModel
         {
             Chats = ServiceWS.GetChats();
 
-            AdicionarCommand = new Command();
-            OrdenarCommand = new Command();
-            AtualizarCommand = new Command();
+            AdicionarCommand = new Command(Adicionar);
+            OrdenarCommand = new Command(Ordenar);
+            AtualizarCommand = new Command(Atualizar);
+        }
+
+        private void Adicionar()
+        {
+            //Com esse não volta página
+            //App.Current.MainPage = new NavigationPage(new View.CadastrarChat());
+
+            //Com esse volta página(Tudo OK)
+            //App.Current.MainPage.Navigation.PushAsync(new View.CadastrarChat());
+
+            //Com esse tbém volta página(Tudo OK)
+            //(App.Current.MainPage).Navigation.PushAsync(new View.CadastrarChat());
+
+            //Com esse tbém volta página(Tudo OK)
+            ((NavigationPage)App.Current.MainPage).Navigation.PushAsync(new View.CadastrarChat());
+
+
+        }
+
+        private void Ordenar()
+        {
+            Chats = Chats.OrderBy(a => a.nome).ToList();
+        }
+
+        private void Atualizar()
+        {
+            Chats = ServiceWS.GetChats();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -57,6 +85,17 @@ namespace XFApp_NossoChat.ViewModel
         }
     }
 }
+            
+
+
+
+            
+            
+
+
+            
+
+
 
 
 
