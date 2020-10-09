@@ -11,21 +11,30 @@ namespace XFApp_NossoChat.ViewModel
 {
     public class ChatsViewModel : INotifyPropertyChanged
     {
-        //private string _nome;
-        //public string Nome
-        //{
-        //    get { return _nome; }
-        //    set
-        //    {
-        //        _nome = value;
-        //        OnPropertyChanged("Nome");
-        //    }
-        //}
+        private Chat _selectedItemChat;
+        public Chat SelectedItemChat
+        {
+            get { return _selectedItemChat; }
+            set
+            {
+                _selectedItemChat = value;
+                OnPropertyChanged("SelectedItemChat");
+                GoPaginaMensagem(value);
+            }
+        }
+
+        private void GoPaginaMensagem(Chat chat)
+        {
+            if (chat != null)
+            {
+                ((NavigationPage)App.Current.MainPage).Navigation.PushAsync(new View.Mensagens(chat));
+            }
+            
+        }
 
         public Command AdicionarCommand { get; set; }
         public Command OrdenarCommand { get; set; }
         public Command AtualizarCommand { get; set; }
-
 
         private List<Chat> _chats;
         public List<Chat> Chats
@@ -60,8 +69,6 @@ namespace XFApp_NossoChat.ViewModel
 
             //Com esse tbém volta página(Tudo OK)
             ((NavigationPage)App.Current.MainPage).Navigation.PushAsync(new View.CadastrarChat());
-
-
         }
 
         private void Ordenar()
@@ -85,15 +92,22 @@ namespace XFApp_NossoChat.ViewModel
         }
     }
 }
-            
 
 
 
-            
-            
 
 
-            
+
+
+
+
+
+
+
+
+
+
+
 
 
 

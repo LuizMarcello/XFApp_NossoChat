@@ -13,17 +13,17 @@
                             <Label Text="Olá amigos, tudo bem?" TextColor="#5Ed055"/>
                         </StackLayout>
                     </Frame>
-                    <StackLayout Padding="5" BackgroundColor="#5Ed055" HorizontalOptions="EndAndExpand">
+                    <StackLayout Padding="5" BackgroundColor="#5Ed055" HorizontalOptions="End">
                         <Label Text="Olá mundo!" TextColor="White"/>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
 
             <StackLayout Orientation="Horizontal">
-                <Frame OutlineColor="#5Ed055" CornerRadius="0">
+                <!--<Frame OutlineColor="#5Ed055" CornerRadius="0" HorizontalOptions="FillAndExpand">-->
                     <Entry Placeholder="Mensagem" BackgroundColor="White" TextColor="#5Ed055" 
                        HorizontalOptions="FillAndExpand"/>
-                </Frame>
+                <!--</Frame>-->
                 <Button Text="Enviar" BackgroundColor="#5Ed055" TextColor="White"/>
             </StackLayout>
 

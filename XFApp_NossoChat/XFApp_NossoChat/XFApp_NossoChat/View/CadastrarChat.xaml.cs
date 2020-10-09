@@ -15,6 +15,8 @@ namespace XFApp_NossoChat.View
         public CadastrarChat()
         {
             InitializeComponent();
+
+            BindingContext = new ViewModel.CadastrarChatViewModel();
         }
     }
 }

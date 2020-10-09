@@ -171,6 +171,7 @@ namespace XFApp_NossoChat.Service
             return false;
         }
 
+        //Deleta a mensagem especificada.
         public static bool DeleteMensagem(Mensagem mensagem)
         {
             var URL = EnderecoBase + "/chat/" + mensagem.id_chat + "/delete/" + mensagem.id;
