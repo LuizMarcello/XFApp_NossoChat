@@ -6,7 +6,7 @@
         <StackLayout>
 
             <ScrollView>
-                <StackLayout>
+                <StackLayout x:Name="SLMensagemContainer">
                     <Frame OutlineColor="#5Ed055"  CornerRadius="0" HorizontalOptions="Start">
                         <StackLayout>
                             <Label Text="Felipe123" FontSize="10" TextColor="#5Ed055"/>
