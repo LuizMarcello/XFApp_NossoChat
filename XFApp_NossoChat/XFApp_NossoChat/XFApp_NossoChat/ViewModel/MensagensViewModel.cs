@@ -5,6 +5,8 @@ using System.ComponentModel;
 using XFApp_NossoChat.Model;
 using XFApp_NossoChat.Service;
 using Xamarin.Forms;
+using XFApp_NossoChat.Util;
+
 
 namespace XFApp_NossoChat.ViewModel
 {
@@ -19,7 +21,7 @@ namespace XFApp_NossoChat.ViewModel
             get { return _mensagens; }
             set
             {   //Estes comandos abaixo só são executados quando esta
-                //propriedade "Mensagens" sofre alguma alteração
+                //propriedade "Mensagens" sofrer alguma alteração
                 _mensagens = value;
                 OnPropertyChanged("Mensagens");
                 ShowOnScreen();
@@ -36,10 +38,19 @@ namespace XFApp_NossoChat.ViewModel
         //Método que vai mostrar a estrutura na tela, usando o stacklayout
         private void ShowOnScreen()
         {
+            var usuario = UsuarioUtil.GetUsuarioLogado();
             SL.Children.Clear();
             foreach (var msg in Mensagens)
             {
-                msg.usuario.id
+                if (msg.usuario.id == usuario.id)
+                {
+                    SL.Children.Add(CriarMensagemPropria(msg));
+                }
+                else
+                {
+                    SL.Children.Add(CriarMensagenOutrosUsuarios(msg));
+                }
+                
             }
         }
 

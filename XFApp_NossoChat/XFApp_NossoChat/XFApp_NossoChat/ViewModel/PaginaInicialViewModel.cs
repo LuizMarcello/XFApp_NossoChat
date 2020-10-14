@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using XFApp_NossoChat.Model;
 using XFApp_NossoChat.Service;
 using Newtonsoft.Json;
+using XFApp_NossoChat.Util;
 
 namespace XFApp_NossoChat.ViewModel
 {
@@ -67,11 +68,7 @@ namespace XFApp_NossoChat.ViewModel
             }
             else
             {
-                //Uma forma de armazenar o login(persistência)
-                //Toda vêz que a propriedade "LOGIN" existir, é porque está logado.
-                //"Properties" pode ser usado por toda a aplicação, para armazenar 
-                //estado da persistencia da aplicação.
-                App.Current.Properties["LOGIN"] = JsonConvert.SerializeObject(usuarioLogado);
+                UsuarioUtil.SetUsuarioLogado(usuarioLogado);
                 //"App.Current": Obtém a aplicação corrente.
                 App.Current.MainPage = new NavigationPage(new View.Chats()) 
                 {
@@ -93,6 +90,7 @@ namespace XFApp_NossoChat.ViewModel
         }
     }
 }
+                
         
 
 

@@ -11,6 +11,10 @@ namespace XFApp_NossoChat.Util
     {
         public static void SetUsuarioLogado(Usuario usuario)
         {
+            //Uma forma de armazenar o login(persistência)
+            //Toda vêz que a propriedade "LOGIN" existir, é porque está logado.
+            //"Properties" pode ser usado por toda a aplicação, para armazenar 
+            //estado da persistencia da aplicação.
             App.Current.Properties["LOGIN"] = JsonConvert.SerializeObject(usuario);
         }
 
