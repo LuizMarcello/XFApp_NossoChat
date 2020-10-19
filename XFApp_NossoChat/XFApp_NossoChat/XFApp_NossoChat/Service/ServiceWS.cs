@@ -124,9 +124,9 @@ namespace XFApp_NossoChat.Service
         }
 
         //Retorna todas as mensagens do chat especificado no id
-        public static List<Mensagem> GetMensagemsChat(Chat chat)
+        public static List<Mensagem> GetMensagensChat(Chat chat)
         {
-            var URL = EnderecoBase + "/chat/" + chat.id + "/msg/";
+            var URL = EnderecoBase + "/chat/" + chat.id + "/msg";
 
             HttpClient requisicao = new HttpClient();
             HttpResponseMessage resposta = requisicao.GetAsync(URL).GetAwaiter().GetResult();
@@ -145,7 +145,11 @@ namespace XFApp_NossoChat.Service
                     return null;
                 }
             }
-            return null;
+            else
+            {
+                return null;
+            }
+            
         }
 
         //Envia nova mensagem para o chat especificado

@@ -2,6 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XFApp_NossoChat.View.Mensagens">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Atualizar mensagens" IconImageSource="add.png" Command="{Binding AtualizarCommand}"/>
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout>
 
@@ -20,13 +25,14 @@
             </ScrollView>
 
             <StackLayout Orientation="Horizontal">
-                <!--<Frame OutlineColor="#5Ed055" CornerRadius="0" HorizontalOptions="FillAndExpand">-->
-                    <Entry Placeholder="Mensagem" BackgroundColor="White" TextColor="#5Ed055" 
-                       HorizontalOptions="FillAndExpand"/>
-                <!--</Frame>-->
-                <Button Text="Enviar" BackgroundColor="#5Ed055" TextColor="White"/>
+                <Entry Text="{Binding TxtMensagem}" Placeholder="Mensagem" BackgroundColor="White" 
+                        TextColor="#5Ed055" HorizontalOptions="FillAndExpand"/>
+                <Button Command="{Binding BtnEnviarCommand}" Text="Enviar" BackgroundColor="#5Ed055" 
+                        TextColor="White"/>
             </StackLayout>
 
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+                
+                

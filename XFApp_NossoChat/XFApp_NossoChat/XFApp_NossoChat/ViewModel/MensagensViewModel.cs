@@ -13,9 +13,11 @@ namespace XFApp_NossoChat.ViewModel
     public class MensagensViewModel : INotifyPropertyChanged
     {
         private StackLayout SL;
+        private Chat chat;
+        public Command BtnEnviarCommand { get; set; }
+        public Command AtualizarCommand { get; set; }
 
         private List<Mensagem> _mensagens;
-
         public List<Mensagem> Mensagens
         {
             get { return _mensagens; }
@@ -24,15 +26,55 @@ namespace XFApp_NossoChat.ViewModel
                 //propriedade "Mensagens" sofrer alguma alteração
                 _mensagens = value;
                 OnPropertyChanged("Mensagens");
-                ShowOnScreen();
+                if (value != null)
+                {
+                    ShowOnScreen();
+                }
+            }
+        }
+
+        private string _txtMensagem;
+        public string TxtMensagem
+        {
+            get { return _txtMensagem; }
+            set
+            {   //Estes comandos abaixo só são executados quando esta
+                //propriedade "TxtMensagem" sofrer alguma alteração
+                _txtMensagem = value;
+                OnPropertyChanged("TxtMensagem");
             }
         }
 
         public MensagensViewModel(Chat chat, StackLayout SLMensagemContainer)
         {
-            //TODO - Pesquisa e apresentação na tela
+            this.chat = chat;
             SL = SLMensagemContainer;
-            Mensagens = ServiceWS.GetMensagemsChat(chat);
+            Atualizar();
+            BtnEnviarCommand = new Command(BtnEnviar);
+            AtualizarCommand = new Command(Atualizar);
+            //Função: a cada 1 segundo chama o método atualizar():
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+                Atualizar();
+                return true;
+            });
+        }
+
+        public void BtnEnviar()
+        {
+            var msg = new Mensagem()
+            {
+                id_usuario = UsuarioUtil.GetUsuarioLogado().id,
+                mensagem = TxtMensagem,
+                id_chat = chat.id 
+            };
+            ServiceWS.InsertMensagem(msg);
+            Atualizar();
+            TxtMensagem = string.Empty;
+        }
+
+        public void Atualizar()
+        {
+            Mensagens = ServiceWS.GetMensagensChat(chat);
         }
 
         //Método que vai mostrar a estrutura na tela, usando o stacklayout
@@ -50,7 +92,7 @@ namespace XFApp_NossoChat.ViewModel
                 {
                     SL.Children.Add(CriarMensagenOutrosUsuarios(msg));
                 }
-                
+
             }
         }
 
@@ -76,7 +118,7 @@ namespace XFApp_NossoChat.ViewModel
 
             SL.Children.Add(labelNome);
             SL.Children.Add(labelMensagem);
-            
+
             var frame = new Frame()
             {
                 HorizontalOptions = LayoutOptions.Start,
@@ -98,7 +140,11 @@ namespace XFApp_NossoChat.ViewModel
         }
     }
 }
-        
+
+
+
+
+
 
 
 
